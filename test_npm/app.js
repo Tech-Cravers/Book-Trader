@@ -1,20 +1,16 @@
 const { google } = require('googleapis') ;
 const path = require('path')
 const fs = require('fs')
-
-const CLIENT_ID = '945949455680-4rt81q5pl668rdkvl9lvpt9s3vb6aq8h.apps.googleusercontent.com'
-const CLIENT_SECRET = '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'
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
-
-const REFRESH_TOKEN = '1//04pGkQC1Uy4XpCgYIARAAGAQSNwF-L9Iru4RzsWfnyD0lcBUHJDPjM_-mZiAi3Wj6eTg6Iqtv4enTnnwV187w49m2Yb3Lv5R5EWk'
+const dotenv = require('dotenv');
+dotenv.config();
 
 const oauth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    process.env.REDIRECT_URI
 );
 
-oauth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
+oauth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN})
 
 const drive = google.drive({
     version: 'v3',
@@ -82,6 +78,6 @@ async function linkgen(){
         console.log(error.message);
     }
 }
-uploadFile();
+//uploadFile();
 //deleteFile();
-//linkgen();
+linkgen();
